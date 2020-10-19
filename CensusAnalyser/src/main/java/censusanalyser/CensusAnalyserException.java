@@ -1,14 +1,11 @@
 package censusanalyser;
 
 public class CensusAnalyserException extends Exception {
-
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = -8981185638235446673L;
+	private static final long serialVersionUID = 1L;
 
 	enum ExceptionType {
-        CENSUS_FILE_PROBLEM
+        CENSUS_FILE_PROBLEM,
+        UNABLE_TO_PARSE
     }
 
     ExceptionType type;
