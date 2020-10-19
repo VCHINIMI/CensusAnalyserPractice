@@ -7,7 +7,7 @@ public class CensusAnalyserException extends Exception {
 		CENSUS_FILE_PROBLEM,
 		UNABLE_TO_PARSE,
 		TYPE_INCORRECT,
-		DELIMITER_PROBLEM
+		CSV_FILE_PROBLEM
 	}
 
 	ExceptionType type;

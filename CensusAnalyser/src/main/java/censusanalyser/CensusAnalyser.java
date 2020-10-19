@@ -29,7 +29,7 @@ public class CensusAnalyser {
 		}
 		catch (RuntimeException e) {
 			throw new CensusAnalyserException(e.getMessage(),
-					CensusAnalyserException.ExceptionType.DELIMITER_PROBLEM);
+					CensusAnalyserException.ExceptionType.CSV_FILE_PROBLEM);
 		}
 	}
 }
