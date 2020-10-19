@@ -76,4 +76,13 @@ public class CensusAnalyserTest {
 		} catch (CensusAnalyserException e) {
 		}
 	}
+	
+	@Test
+	public void givenIndiaStateCode_WithWrongFile_ShouldThrowException() {
+		try {
+			censusAnalyser.loadIndianStateCode(WRONG_CSV_FILE_PATH);
+		} catch (CensusAnalyserException e) {
+			Assert.assertEquals(CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
+		}
+	}
 }
