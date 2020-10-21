@@ -28,7 +28,7 @@ public class CensusAnalyserTest {
 	@Test
 	public void givenIndianCensusCSVFileReturnsCorrectRecords() {
 		try {
-			int numOfRecords = censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
+			int numOfRecords = censusAnalyser.loadIndiaCensusDataCSVCommons(INDIA_CENSUS_CSV_FILE_PATH);
 			Assert.assertEquals(29, numOfRecords);
 		} catch (CensusAnalyserException e) {
 			System.out.println(e.getMessage());
@@ -74,7 +74,7 @@ public class CensusAnalyserTest {
 	@Test
 	public void givenIndianStateCSV_whenCorrect_shouldReturnExactCount() {
 		try {
-			int numberOfStateCode = censusAnalyser.loadIndianStateCode(INDIA_STATECODE_CSV_FILE_PATH);
+			int numberOfStateCode = censusAnalyser.loadIndiaStateDataCSVCommons(INDIA_STATECODE_CSV_FILE_PATH);
 			Assert.assertEquals(37, numberOfStateCode);
 		} catch (CensusAnalyserException e) {
 		}
