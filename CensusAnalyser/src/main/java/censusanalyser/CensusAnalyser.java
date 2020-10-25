@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
@@ -19,7 +20,7 @@ public class CensusAnalyser {
 
 	List<IndiaCensusCSV> censusCSVList = null;
 	List<IndiaStateCodeCSV> stateCodeList = null;
-	
+
 	public int loadIndiaCensusData(String csvFilePath) throws CensusAnalyserException {
 		try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
 			ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
@@ -66,7 +67,7 @@ public class CensusAnalyser {
 		String sortedStateCensusJson = new Gson().toJson(censusCSVList);
 		return sortedStateCensusJson;
 	}
-	
+
 	public String getStateCodeWiseSortedCensusData() throws CensusAnalyserException {
 		if (stateCodeList == null || stateCodeList.size() == 0) {
 			throw new CensusAnalyserException("No List Available",
@@ -78,11 +79,23 @@ public class CensusAnalyser {
 		return sortedStateCensusJson;
 	}
 
+	public String getPopulationWiseSortedData() throws CensusAnalyserException {
+		if (censusCSVList == null || censusCSVList.size() == 0) {
+			throw new CensusAnalyserException("No List Available",
+					CensusAnalyserException.ExceptionType.NO_CENSUS_DATA);
+		}
+		Comparator<IndiaCensusCSV> censusComparator = Comparator.comparing(census -> census.population);
+		this.sort(censusComparator, censusCSVList);
+		Collections.reverse(censusCSVList);
+		String sortedStateCensusJson = new Gson().toJson(censusCSVList);
+		return sortedStateCensusJson;
+	}
+
 	private <E> void sort(Comparator<E> censusComparator, List<E> sortList) {
 		for (int i = 0; i < sortList.size() - 1; i++) {
 			for (int j = 0; j < sortList.size() - i - 1; j++) {
-				 E census1 = sortList.get(j);
-				 E census2 = sortList.get(j + 1);
+				E census1 = sortList.get(j);
+				E census2 = sortList.get(j + 1);
 				if (censusComparator.compare(census1, census2) > 0) {
 					sortList.set(j, census2);
 					sortList.set(j + 1, census1);
