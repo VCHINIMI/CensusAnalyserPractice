@@ -124,9 +124,21 @@ public class CensusAnalyserTest {
 	public void givenIndianCensusDataSortedByStateName() {
 		try {
 			censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
-			String stateWiseSortedCensusData = censusAnalyser.getStateWiseSortedCensusData();
-			IndiaCensusCSV[] censusCSV = new Gson().fromJson(stateWiseSortedCensusData, IndiaCensusCSV[].class);
+			String stateNameWiseSortedCensusData = censusAnalyser.getStateNameWiseSortedCensusData();
+			IndiaCensusCSV[] censusCSV = new Gson().fromJson(stateNameWiseSortedCensusData, IndiaCensusCSV[].class);
 			assertEquals("Andhra Pradesh", censusCSV[0].state);				
+		}catch (CensusAnalyserException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	@Test
+	public void givenIndianStateCodeSortByCode() {
+		try {
+			censusAnalyser.loadIndianStateCode(INDIA_STATECODE_CSV_FILE_PATH);
+			String stateCodeWiseSortedStateData = censusAnalyser.getStateCodeWiseSortedCensusData();
+			IndiaStateCodeCSV[] censusCSV = new Gson().fromJson(stateCodeWiseSortedStateData, IndiaStateCodeCSV[].class);
+			assertEquals("Andhra Pradesh New", censusCSV[0].state);				
 		}catch (CensusAnalyserException e) {
 			System.out.println(e.getMessage());
 		}
