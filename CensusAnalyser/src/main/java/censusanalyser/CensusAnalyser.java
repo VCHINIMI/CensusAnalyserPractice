@@ -90,6 +90,19 @@ public class CensusAnalyser {
 		String sortedStateCensusJson = new Gson().toJson(censusCSVList);
 		return sortedStateCensusJson;
 	}
+	
+	public String getPopulationDensityWiseSortedData() throws CensusAnalyserException {
+		if (censusCSVList == null || censusCSVList.size() == 0) {
+			throw new CensusAnalyserException("No List Available",
+					CensusAnalyserException.ExceptionType.NO_CENSUS_DATA);
+		}
+		Comparator<IndiaCensusCSV> censusComparator = Comparator.comparing(census -> census.densityPerSqKm);
+		this.sort(censusComparator, censusCSVList);
+		Collections.reverse(censusCSVList);
+		String sortedStateCensusJson = new Gson().toJson(censusCSVList);
+		return sortedStateCensusJson;
+	}
+
 
 	private <E> void sort(Comparator<E> censusComparator, List<E> sortList) {
 		for (int i = 0; i < sortList.size() - 1; i++) {
